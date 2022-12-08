@@ -1,31 +1,30 @@
 import { fetchImages, limit } from './fetchImages';
 import { textInput, lightbox, ref, checkUP } from '../index';
+import Notiflix from 'notiflix';
 
-// console.log(page);
 let page = 1;
-console.log(page);
 
 function onCreatList() {
   console.log(checkUP);
   if (checkUP === true) {
-    console.log(`checkUP ${page}`);
     page = 1;
   }
 
   fetchImages(textInput)
     .then(r => {
       renderList(r);
-      // console.log(r.totalHits);
       page = page + 1;
       if (r.totalHits <= page * limit) {
         ref.loadMore.classList.add(`hidden`);
+        Notiflix.Notify.info(
+          `We're sorry, but you've reached the end of search results.`
+        );
       }
     })
     .catch(Error => console.log(Error));
 }
 
 function renderList(element) {
-  // console.dir(element.totalHits);
   const markup = element.hits
     .map(n => {
       return `<li class="gallary-item">
