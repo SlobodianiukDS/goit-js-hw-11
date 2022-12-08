@@ -15,16 +15,29 @@ function onCreatList() {
       renderList(r);
       page = page + 1;
       if (r.totalHits <= page * limit) {
-        ref.loadMore.classList.add(`hidden`);
-        Notiflix.Notify.info(
-          `We're sorry, but you've reached the end of search results.`
-        );
+        if (r.totalHits === 0) {
+          Notiflix.Notify.failure(
+            'Sorry, there are no images matching your search query. Please try again.'
+          );
+        } else {
+          ref.loadMore.classList.add(`hidden`);
+          Notiflix.Notify.info(
+            `We're sorry, but you've reached the end of search results.`
+          );
+        }
       }
     })
-    .catch(Error => console.log(Error));
+    .catch(Error =>
+      Notiflix.Notify.failure(
+        'Sorry, there are no images matching your search query. Please try again.'
+      )
+    );
 }
 
 function renderList(element) {
+  if (element.totalHits === 0) {
+    return;
+  }
   const markup = element.hits
     .map(n => {
       return `<li class="gallary-item">

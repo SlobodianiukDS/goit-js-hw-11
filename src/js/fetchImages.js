@@ -9,7 +9,11 @@ export function fetchImages(name) {
     `${basaURL}?key=${KEY_PIXABAY}&q=${name}&per_page=${limit}&page=${page}`
   ).then(r => {
     if (!r.ok) {
-      throw new Error(r.status);
+      throw new Error(
+        Notiflix.Notify.failure(
+          'Sorry, there are no images matching your search query. Please try again.'
+        )
+      );
     }
     return r.json();
   });
