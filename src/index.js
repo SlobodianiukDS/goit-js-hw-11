@@ -18,7 +18,7 @@ ref.form.addEventListener('submit', checkOnCreatList);
 
 function onSerch(e) {
   checkUP = true;
-  console.log(checkUP);
+  // console.log(checkUP);
 
   ref.gallery.innerHTML = ``;
   textInput = e.target.value;

@@ -5,7 +5,7 @@ import Notiflix from 'notiflix';
 let page = 1;
 
 function onCreatList() {
-  console.log(checkUP);
+  // console.log(checkUP);
   if (checkUP === true) {
     page = 1;
   }
